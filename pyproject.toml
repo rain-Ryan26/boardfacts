@@ -1,0 +1,57 @@
+[project]
+name = "boardfacts"
+version = "0.1.0"
+description = "Architecture-driven PCB manufacturing document analysis backend"
+requires-python = ">=3.12"
+dependencies = [
+    "fastapi<1",
+    "gerbonara==1.6.3",
+    "httpx<1",
+    "pillow<13",
+    "pydantic<3",
+    "pymupdf<2",
+    "python-dotenv<2",
+    "python-multipart<1",
+    "shapely==2.1.2",
+    "uvicorn[standard]<1",
+]
+
+[project.scripts]
+boardfacts = "flyboard.cli:main"
+
+[dependency-groups]
+dev = [
+    "pytest<10",
+    "ruff<1",
+]
+
+[build-system]
+requires = ["uv_build>=0.11.29,<0.12"]
+build-backend = "uv_build"
+
+[tool.uv.build-backend]
+module-name = "flyboard"
+module-root = "src"
+
+[tool.pytest.ini_options]
+addopts = [
+    "-ra",
+    "--strict-config",
+    "--strict-markers",
+    "-p",
+    "no:cacheprovider",
+    "--basetemp=.test-tmp",
+]
+testpaths = ["tests"]
+
+[tool.ruff]
+target-version = "py312"
+line-length = 100
+extend-exclude = ["prev", "src/prev"]
+
+[tool.ruff.lint]
+select = ["E4", "E7", "E9", "F", "I"]
+
+[tool.ruff.format]
+line-ending = "lf"
+quote-style = "double"

@@ -1,0 +1,30 @@
+{
+  "case_id": "complex_gerber_pcb",
+  "board_code": "MFC-812",
+  "revision": "R2",
+  "scope": "one Gerber job",
+  "board_size_mm": [
+    92.0,
+    66.0
+  ],
+  "copper_layer_count": 8,
+  "layer_input_count": 17,
+  "generated_gerber_object_count": 77024,
+  "drill": {
+    "plated_hits": 1500,
+    "slots": 24,
+    "non_plated_hits": 84
+  },
+  "minimum_trace_width_mm": 0.13,
+  "minimum_drill_diameter_mm": 0.25,
+  "required_preparation_outputs": [
+    "preparation.json",
+    "17 layer previews"
+  ],
+  "parser_warning_count": 0,
+  "shared_preview_viewbox": "-0.05 -0.05 92.1 66.1",
+  "notes": [
+    "The profile is acceptance-side data and must not be registered as project material.",
+    "Parser and preparation verification passed on 2026-07-20; full confirmed analysis remains a separate acceptance run."
+  ]
+}

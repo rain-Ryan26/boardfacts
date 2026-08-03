@@ -1,0 +1,108 @@
+{
+  "Header": {
+    "GenerationSoftware": {
+      "Vendor": "MFC Engineering",
+      "Application": "Layout Export",
+      "Version": "4.2"
+    }
+  },
+  "GeneralSpecs": {
+    "ProjectId": "MFC-812",
+    "Revision": "R2",
+    "LayerNumber": 8,
+    "Size": {
+      "X": 92.0,
+      "Y": 66.0,
+      "Unit": "mm"
+    }
+  },
+  "FilesAttributes": [
+    {
+      "Path": "MFC_812_R2_L1_TOP.gbr",
+      "FileFunction": "Copper,L1,Top",
+      "object_count": 8500
+    },
+    {
+      "Path": "MFC_812_R2_L2_GND.gbr",
+      "FileFunction": "Copper,L2,Inr",
+      "object_count": 7800
+    },
+    {
+      "Path": "MFC_812_R2_L3_SIG.gbr",
+      "FileFunction": "Copper,L3,Inr",
+      "object_count": 8200
+    },
+    {
+      "Path": "MFC_812_R2_L4_PWR.gbr",
+      "FileFunction": "Copper,L4,Inr",
+      "object_count": 7600
+    },
+    {
+      "Path": "MFC_812_R2_L5_PWR.gbr",
+      "FileFunction": "Copper,L5,Inr",
+      "object_count": 7600
+    },
+    {
+      "Path": "MFC_812_R2_L6_SIG.gbr",
+      "FileFunction": "Copper,L6,Inr",
+      "object_count": 8200
+    },
+    {
+      "Path": "MFC_812_R2_L7_GND.gbr",
+      "FileFunction": "Copper,L7,Inr",
+      "object_count": 7800
+    },
+    {
+      "Path": "MFC_812_R2_L8_BOTTOM.gbr",
+      "FileFunction": "Copper,L8,Bot",
+      "object_count": 8500
+    },
+    {
+      "Path": "MFC_812_R2_TOP_MASK.gbr",
+      "FileFunction": "Soldermask,Top",
+      "object_count": 2800
+    },
+    {
+      "Path": "MFC_812_R2_BOTTOM_MASK.gbr",
+      "FileFunction": "Soldermask,Bot",
+      "object_count": 2800
+    },
+    {
+      "Path": "MFC_812_R2_TOP_PASTE.gbr",
+      "FileFunction": "Paste,Top",
+      "object_count": 1800
+    },
+    {
+      "Path": "MFC_812_R2_BOTTOM_PASTE.gbr",
+      "FileFunction": "Paste,Bot",
+      "object_count": 1800
+    },
+    {
+      "Path": "MFC_812_R2_TOP_LEGEND.gbr",
+      "FileFunction": "Legend,Top",
+      "object_count": 1800
+    },
+    {
+      "Path": "MFC_812_R2_BOTTOM_LEGEND.gbr",
+      "FileFunction": "Legend,Bot",
+      "object_count": 1800
+    },
+    {
+      "Path": "MFC_812_R2_PROFILE.gbr",
+      "FileFunction": "Profile,NP",
+      "object_count": 24
+    },
+    {
+      "Path": "MFC_812_R2_PTH.drl",
+      "FileFunction": "Plated,1,8,PTH"
+    },
+    {
+      "Path": "MFC_812_R2_NPTH.drl",
+      "FileFunction": "NonPlated,1,8,NPTH"
+    },
+    {
+      "Path": "MFC_812_R2_PLATING.gtd",
+      "FileFunction": "Plating metadata"
+    }
+  ]
+}

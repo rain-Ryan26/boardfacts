@@ -1,0 +1,56 @@
+# Local configuration and credentials
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+credentials*.json
+secrets*.json
+
+# Python environments, caches, and build outputs
+.venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+build/
+dist/
+*.egg-info/
+
+# Coverage outputs
+.coverage
+.coverage.*
+coverage.xml
+htmlcov/
+
+# Runtime and local verification outputs
+/tmp/
+/.boardfacts/
+/.flyboard/
+/storage/
+/.test-tmp/
+/.pytest-tmp-*/
+/.audit-tmp-*/
+/.tmp/
+tests/outputs/
+testsources/.runs/
+testsources/.work/
+
+# Private or real-world inputs must stay outside version control
+/ref/
+/samples/
+/private/
+/local-inputs/
+
+# Generated documents and deliverables
+/.work/
+/deliverables/
+
+# Local editor and operating-system files
+.idea/
+.vscode/
+.DS_Store
+Thumbs.db

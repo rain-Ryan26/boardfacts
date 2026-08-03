@@ -1,0 +1,39 @@
+{
+  "schema_version": "1.0",
+  "rule_set_id": "pcb_manufacturing_r3",
+  "rule_set_name": "PCB 高可靠制造能力基线 R3",
+  "rule_set_version": "2026.07-r3.1",
+  "description": "用于高可靠多层 PCB 可制造性与接单评审的工程约束。",
+  "rules": [
+    {
+      "rule_id": "finished_thickness_max_170",
+      "name": "成品板厚上限 1.70 mm",
+      "target_field_code": "board_thickness_mm",
+      "instruction": "成品板厚不得大于 1.70 mm。仅在目标字段有明确且无冲突的工程值时判断；大于 1.70 mm 为 violation，不大于为 no_violation，缺值或资料冲突为 insufficient_information。"
+    },
+    {
+      "rule_id": "trace_spacing_min_0125",
+      "name": "最小线距下限 0.125 mm",
+      "target_field_code": "min_trace_spacing_mm",
+      "instruction": "最小线距不得小于 0.125 mm。仅在目标字段有明确且无冲突的工程值时判断；小于 0.125 mm 为 violation，不小于为 no_violation，缺值或资料冲突为 insufficient_information。"
+    },
+    {
+      "rule_id": "surface_finish_enig",
+      "name": "表面处理必须为 ENIG",
+      "target_field_code": "surface_finish",
+      "instruction": "表面处理必须明确为 ENIG。明确为 ENIG 时为 no_violation，明确为其他表面处理时为 violation，缺值或资料冲突时为 insufficient_information。"
+    },
+    {
+      "rule_id": "blind_vias_not_allowed",
+      "name": "标准工艺不接受盲孔",
+      "target_field_code": "blind_vias",
+      "instruction": "该制造能力基线不接受盲孔。目标字段明确表示存在盲孔时为 violation，明确表示不存在盲孔时为 no_violation，缺值或语义不明确时为 insufficient_information。"
+    },
+    {
+      "rule_id": "ipc_class_3_required",
+      "name": "必须满足 IPC Class 3",
+      "target_field_code": "ipc_class",
+      "instruction": "产品必须明确满足 IPC Class 3。明确为 IPC Class 3 时为 no_violation，明确为较低等级时为 violation，缺值或资料冲突时为 insufficient_information。"
+    }
+  ]
+}

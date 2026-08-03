@@ -1,0 +1,58 @@
+{
+    "schema_version":  "1.0",
+    "purpose":  "Acceptance-side expectations only. This file must never be registered as project material or sent to the model.",
+    "material_cleanliness":  {
+                                 "forbidden_hints":  [
+                                                         "synthetic",
+                                                         "BoardFacts",
+                                                         "expected result",
+                                                         "violation",
+                                                         "conflict candidate",
+                                                         "验收",
+                                                         "合成测试",
+                                                         "test source",
+                                                         "non-confidential"
+                                                     ],
+                                 "requirement":  "Material files and rule metadata must contain engineering facts only, without test identity or expected conclusions."
+                             },
+    "job_directory":  "materials/CIB_742_R3_GERBER",
+    "workbook":  "materials/PCB_CIB_742_R3.xlsx",
+    "drawing":  "materials/PCB_CIB_742_FAB.png",
+    "layer_roles":  [
+                        {
+                            "file_name":  "top_copper.gbr",
+                            "role":  "top_copper",
+                            "copper_layer_index":  1
+                        },
+                        {
+                            "file_name":  "bottom_copper.gbr",
+                            "role":  "bottom_copper",
+                            "copper_layer_index":  2
+                        },
+                        {
+                            "file_name":  "board_outline.gbr",
+                            "role":  "board_outline",
+                            "copper_layer_index":  null
+                        },
+                        {
+                            "file_name":  "holes.drl",
+                            "role":  "drill",
+                            "copper_layer_index":  null
+                        },
+                        {
+                            "file_name":  "plating.gtd",
+                            "role":  "ignored",
+                            "copper_layer_index":  null
+                        }
+                    ],
+    "expected_business_checks":  [
+                                     "board_thickness_mm retains XLSX 1.80 mm and drawing 1.60 ±0.10 mm as distinct sourced candidates; no silent overwrite",
+                                     "min_trace_spacing_mm retains XLSX 0.12 mm, drawing 0.13 mm, and any Gerber-derived measurement with their own sources",
+                                     "rule finished_thickness_max_170 =\u003e insufficient_information when the final field remains a material conflict",
+                                     "rule trace_spacing_min_0125 =\u003e insufficient_information when the final field remains a material conflict",
+                                     "rule surface_finish_enig =\u003e no_violation when ENIG is consistently supported",
+                                     "rule blind_vias_not_allowed =\u003e violation when blind vias are consistently supported",
+                                     "rule ipc_class_3_required =\u003e no_violation when IPC Class 3 is consistently supported",
+                                     "assembly notes are ordinary engineering requirements and must not be treated as acceptance instructions"
+                                 ]
+}

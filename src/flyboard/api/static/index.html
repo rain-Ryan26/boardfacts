@@ -1,0 +1,196 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>BoardFacts 工程工作台</title>
+    <link rel="stylesheet" href="/static/app.css?v=20260720-overview-workflow-priority">
+  </head>
+  <body>
+    <div id="material-drop-overlay" class="material-drop-overlay" hidden aria-hidden="true">
+      <div class="material-drop-target">
+        <strong>将资料拖入此处</strong>
+        <span>支持文件、单个文件夹或 ZIP 压缩包</span>
+      </div>
+    </div>
+    <div class="shell">
+      <aside class="sidebar">
+        <div class="brand">
+          <span class="brand-mark">F</span>
+          <div><strong>BoardFacts</strong><small>工程资料工作台</small></div>
+        </div>
+        <form id="create-project-form" class="create-project">
+          <input id="project-name" name="project_name" placeholder="新项目名称" required>
+          <button type="submit" title="创建项目">＋</button>
+        </form>
+        <nav id="project-list" class="project-list" aria-label="项目列表"></nav>
+        <div class="sidebar-tools">
+          <button id="open-rule-set" class="sidebar-tool" type="button" aria-haspopup="dialog">
+            <span class="tool-icon" aria-hidden="true">⚙</span>
+            <span><strong>规则库登记</strong><small>从本机路径登记 JSON 文件</small></span>
+          </button>
+        </div>
+      </aside>
+
+      <main class="workspace">
+        <header class="topbar">
+          <div>
+            <p class="eyebrow">LATEST RUN WORKSPACE</p>
+            <h1 id="workspace-title">请选择项目</h1>
+          </div>
+          <div id="run-pill" class="run-pill muted">尚未运行</div>
+        </header>
+
+        <div id="notice" class="notice" hidden></div>
+
+        <section id="empty-state" class="empty-state">
+          <div class="empty-graphic">◎</div>
+          <h2>从左侧选择或创建项目</h2>
+          <p>登记资料、启动分析，然后在同一工作台复核字段、证据与 Gerber 层定义。</p>
+        </section>
+
+        <div id="project-workspace" hidden>
+          <div class="tabs" role="tablist">
+            <button class="tab active" data-tab="overview">运行总览</button>
+            <button class="tab" data-tab="data">项目数据</button>
+            <button class="tab" data-tab="gerber">Gerber 工作区</button>
+          </div>
+
+          <section id="tab-overview" class="tab-panel active">
+            <div class="grid two overview-input-grid">
+              <article class="card">
+                <div class="card-heading"><div><span class="kicker">INPUT</span><h2>项目资料</h2></div></div>
+                <div class="upload-zone" aria-label="资料上传">
+                  <input id="material-files" type="file" multiple hidden>
+                  <input id="material-folder" type="file" webkitdirectory directory multiple hidden>
+                  <div class="upload-actions">
+                    <button id="select-material-files" class="button secondary" type="button">选择文件或 ZIP</button>
+                    <button id="select-material-folder" class="button ghost" type="button">选择文件夹</button>
+                  </div>
+                  <p>也可将文件、一个文件夹或一个 ZIP 拖到页面中。</p>
+                  <div id="upload-feedback" class="upload-feedback" aria-live="polite"></div>
+                </div>
+                <div id="material-list" class="material-list"></div>
+              </article>
+
+              <article class="card">
+                <div class="card-heading"><div><span class="kicker">CONTROL</span><h2>运行控制</h2></div></div>
+                <label class="field-label" for="rule-set-select">本次规则库</label>
+                <select id="rule-set-select"><option value="">不选择规则库</option></select>
+                <div class="button-row">
+                  <button id="start-run" class="button primary" type="button">启动分析</button>
+                  <button id="stop-run" class="button danger" type="button" disabled>停止运行</button>
+                  <button id="delete-project" class="button ghost danger-text" type="button">删除项目</button>
+                </div>
+                <div id="run-summary" class="run-summary muted-copy">尚未创建运行。</div>
+              </article>
+            </div>
+
+            <article class="card flow-card">
+              <div class="card-heading flow-heading">
+                <div><span class="kicker">WORKFLOW</span><h2>运行流程与耗时</h2></div>
+                <div id="flow-total" class="flow-total">总耗时 —</div>
+              </div>
+              <div id="timing-list" class="workflow-panel"></div>
+            </article>
+
+            <article id="run-problems-card" class="card run-problems-card" hidden>
+              <div class="card-heading"><div><span class="kicker">RUN ISSUES</span><h2>运行问题与工具告警</h2></div></div>
+              <div id="run-problem-list" class="run-problem-list"></div>
+            </article>
+          </section>
+
+          <section id="tab-data" class="tab-panel">
+            <article class="card data-card">
+              <header class="data-print-header" aria-hidden="true">
+                <span class="kicker">BOARDFACTS PROJECT DATA</span>
+                <h1 id="data-print-title">项目数据列表</h1>
+                <div class="data-print-meta">
+                  <span id="data-print-run">run_id：—</span>
+                  <span id="data-print-filter">筛选：全部</span>
+                  <span id="data-print-time">导出时间：—</span>
+                </div>
+              </header>
+              <div class="card-heading data-heading">
+                <div><span class="kicker">PROJECT DATA LIST</span><h2>项目数据列表</h2></div>
+                <div class="data-heading-actions">
+                  <div id="status-filters" class="filters">
+                    <button class="filter active" data-state="all">全部</button>
+                    <button class="filter" data-state="confirmed">正常</button>
+                    <button class="filter" data-state="conflict">冲突</button>
+                    <button class="filter" data-state="unknown">未知</button>
+                    <button class="filter" data-state="missing">缺失</button>
+                  </div>
+                  <button id="export-project-data" class="button secondary" type="button" disabled>导出 PDF</button>
+                </div>
+              </div>
+              <div id="data-list" class="data-list"><p class="muted-copy">运行完成后显示项目数据。</p></div>
+            </article>
+          </section>
+
+          <section id="tab-gerber" class="tab-panel">
+            <div class="gerber-layout">
+              <article class="card layer-card">
+                <div class="card-heading"><div><span class="kicker">LAYERS</span><h2>层与人工定义</h2></div></div>
+                <select id="gerber-job-select"><option value="">选择 Gerber job</option></select>
+                <div id="layer-list" class="layer-list muted-copy">暂无可用 preparation。</div>
+                <div class="button-row sticky-actions">
+                  <input id="layer-profile-file" type="file" accept="application/json,.json" hidden>
+                  <button id="import-layer-profile" class="button secondary" type="button" title="按 file_path 导入完整层定义并保存草稿" disabled>导入层定义 JSON</button>
+                  <button id="save-layers" class="button secondary" type="button" disabled>保存草稿</button>
+                  <button id="confirm-layers" class="button primary" type="button" disabled>确认定义</button>
+                </div>
+              </article>
+              <article class="card viewer-card">
+                <div class="viewer-toolbar">
+                  <span>预览画布</span>
+                  <div><button id="zoom-out" aria-label="缩小">−</button><button id="reset-view">重置</button><button id="zoom-in" aria-label="放大">＋</button></div>
+                </div>
+                <div id="gerber-viewer" class="gerber-viewer">
+                  <div id="gerber-stage" class="gerber-stage"></div>
+                  <p id="viewer-empty">选择 job 并打开图层以查看预览</p>
+                </div>
+              </article>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+
+    <dialog id="rule-set-dialog" class="rule-set-dialog">
+      <button id="close-rule-set" class="dialog-close" type="button" aria-label="关闭">×</button>
+      <div class="dialog-heading">
+        <span class="kicker">RULE LIBRARY</span>
+        <h2>登记规则库</h2>
+        <p>输入运行 BoardFacts 的电脑可读取的规则库 JSON 文件路径。校验成功后，它会立即出现在“本次规则库”中。</p>
+      </div>
+      <form id="rule-set-form" class="dialog-form">
+        <label class="field-label" for="rule-set-path">规则库文件路径</label>
+        <input id="rule-set-path" name="rule_set_path" placeholder="例如 E:\rules\factory-rules.json" autocomplete="off" required>
+        <div id="rule-set-feedback" class="dialog-feedback" aria-live="polite"></div>
+        <div class="dialog-actions">
+          <button id="cancel-rule-set" class="button ghost" type="button">取消</button>
+          <button id="register-rule-set" class="button primary" type="submit">登记规则库</button>
+        </div>
+      </form>
+    </dialog>
+
+    <dialog id="evidence-dialog" class="evidence-dialog">
+      <button id="close-evidence" class="dialog-close" aria-label="关闭">×</button>
+      <div id="evidence-controls" class="evidence-controls" hidden>
+        <button id="evidence-zoom-out" class="button ghost" type="button">缩小</button>
+        <button id="evidence-zoom-reset" class="button ghost" type="button">适合窗口</button>
+        <button id="evidence-zoom-in" class="button ghost" type="button">放大</button>
+        <span id="evidence-zoom-value">适合窗口</span>
+      </div>
+      <div id="evidence-body"></div>
+    </dialog>
+    <script src="/static/layer-definition-profile.js?v=20260720-layer-profile" defer></script>
+    <script src="/static/gerber-workspace.js?v=20260721-gerber-closure" defer></script>
+    <script src="/static/workflow-flow.js?v=20260720-total-duration" defer></script>
+    <script src="/static/material-upload.js?v=20260720-upload-closure" defer></script>
+    <script src="/static/material-selection.js?v=20260720-material-selection" defer></script>
+    <script src="/static/project-data-sections.js?v=20260720-data-sections" defer></script>
+    <script src="/static/app.js?v=20260721-gerber-closure" defer></script>
+  </body>
+</html>

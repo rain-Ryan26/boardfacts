@@ -1,0 +1,177 @@
+{
+  "schema_version": "1.0",
+  "case_id": "complex_gerber_pcb",
+  "purpose": "Acceptance-side expectations only. This file must never be registered as project material or sent to the model.",
+  "scope": "one complex Gerber job plus one engineering workbook, one independent fabrication drawing, and one five-rule manufacturing baseline",
+  "files": {
+    "gerber_job": "materials/MFC_812_R2_GERBER",
+    "workbook": "materials/MFC_812_R2_SPEC.xlsx",
+    "drawing": "materials/MFC_812_R2_FAB.png",
+    "rule_set": "rules/PCB_MANUFACTURING_RULES_R3.json",
+    "layer_definition_profile": "expected/layer_definition_profile.json",
+    "gerber_baseline": "expected/gerber_baseline.json"
+  },
+  "material_cleanliness": {
+    "forbidden_hints": [
+      "synthetic",
+      "BoardFacts",
+      "expected result",
+      "conflict candidate",
+      "验收",
+      "合成测试",
+      "test source",
+      "non-confidential"
+    ],
+    "requirement": "Material files and rule metadata contain engineering facts only. Expected relations and decisions remain under expected/."
+  },
+  "source_relationships": [
+    {
+      "field_code": "layer_count",
+      "relationship": "consistent",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": 8},
+        {"source": "drawing/FABRICATION DATA", "value": 8},
+        {"source": "gerber_job", "value": 8}
+      ]
+    },
+    {
+      "field_code": "board_size_mm",
+      "relationship": "consistent",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": [92.0, 66.0]},
+        {"source": "drawing/BOARD PROFILE", "value": [92.0, 66.0]},
+        {"source": "gerber_job/outline", "value": [92.0, 66.0]}
+      ]
+    },
+    {
+      "field_code": "board_thickness_mm",
+      "relationship": "conflict",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": 1.60},
+        {"source": "workbook/叠层", "value": 1.60},
+        {"source": "drawing/FABRICATION DATA", "value": 1.80, "tolerance_mm": 0.10}
+      ],
+      "acceptance": "retain both sourced values and do not silently select one"
+    },
+    {
+      "field_code": "min_trace_width_mm",
+      "relationship": "consistent",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": 0.13},
+        {"source": "drawing/FABRICATION DATA", "value": 0.13},
+        {"source": "gerber_job/aperture measurement", "value": 0.13}
+      ]
+    },
+    {
+      "field_code": "min_trace_spacing_mm",
+      "relationship": "conflict",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": 0.15},
+        {"source": "drawing/FABRICATION DATA", "value": 0.10}
+      ],
+      "acceptance": "retain both sourced values and mark the integrated field as conflicted"
+    },
+    {
+      "field_code": "outer_copper_thickness_um",
+      "relationship": "conflict",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": 35},
+        {"source": "workbook/叠层", "value": 35},
+        {"source": "drawing/FABRICATION DATA", "value": 70}
+      ],
+      "acceptance": "retain both sourced values; this conflict is not consumed by the current five-rule library"
+    },
+    {
+      "field_code": "surface_finish",
+      "relationship": "conflict",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": "ENIG"},
+        {"source": "drawing/FABRICATION DATA", "value": "OSP"}
+      ],
+      "acceptance": "retain both sourced values and mark the integrated field as conflicted"
+    },
+    {
+      "field_code": "blind_vias",
+      "relationship": "consistent",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": "yes", "detail": "L1-L2 and L7-L8"},
+        {"source": "drawing/FABRICATION DATA", "value": "yes", "detail": "L1-L2 and L7-L8"}
+      ]
+    },
+    {
+      "field_code": "ipc_class",
+      "relationship": "consistent",
+      "candidates": [
+        {"source": "workbook/制造规格", "value": "IPC Class 3"},
+        {"source": "drawing/FABRICATION DATA", "value": "IPC Class 3"}
+      ]
+    }
+  ],
+  "expected_rule_results": [
+    {
+      "rule_id": "finished_thickness_max_170",
+      "target_field_code": "board_thickness_mm",
+      "decision": "insufficient_information",
+      "reason": "the target field has conflicting 1.60 mm and 1.80 ±0.10 mm source values"
+    },
+    {
+      "rule_id": "trace_spacing_min_0125",
+      "target_field_code": "min_trace_spacing_mm",
+      "decision": "insufficient_information",
+      "reason": "the target field has conflicting 0.15 mm and 0.10 mm source values"
+    },
+    {
+      "rule_id": "surface_finish_enig",
+      "target_field_code": "surface_finish",
+      "decision": "insufficient_information",
+      "reason": "the target field has conflicting ENIG and OSP source values"
+    },
+    {
+      "rule_id": "blind_vias_not_allowed",
+      "target_field_code": "blind_vias",
+      "decision": "violation",
+      "reason": "both non-Gerber sources explicitly require blind vias"
+    },
+    {
+      "rule_id": "ipc_class_3_required",
+      "target_field_code": "ipc_class",
+      "decision": "no_violation",
+      "reason": "both non-Gerber sources explicitly require IPC Class 3"
+    }
+  ],
+  "gerber_expectations": {
+    "copper_layer_count": 8,
+    "layer_input_count": 17,
+    "generated_object_count": 77024,
+    "minimum_drill_diameter_mm": 0.25,
+    "drill": {"plated_hits": 1500, "slots": 24, "non_plated_hits": 84},
+    "parser_warning_count": 0,
+    "shared_preview_viewbox": "-0.05 -0.05 92.1 66.1",
+    "required_preparation_outputs": ["preparation.json", "17 layer previews"]
+  },
+  "workbook_expectations": {
+    "sheets": ["制造规格", "叠层", "钻孔与拼板"],
+    "required_formula_results": {
+      "叠层!A15": "0.178 mm",
+      "叠层!B15": "1.422 mm",
+      "叠层!C15": "1.600 mm",
+      "钻孔与拼板!C9": 6
+    },
+    "formula_error_count": 0
+  },
+  "visual_expectations": {
+    "drawing_sections": ["BOARD PROFILE / SINGLE PCB", "FABRICATION DATA", "STACK-UP & DRILL SUMMARY", "GENERAL NOTES"],
+    "requirements": [
+      "board outline, 92.00 × 66.00 dimensions, four mounting holes, and central service opening are legible",
+      "fabrication values are readable without clipping and remain independent from the workbook layout",
+      "title, revision, units, and approval strip are visible"
+    ]
+  },
+  "acceptance_requirements": [
+    "all candidates retain Evidence that resolves through the production artifact interfaces",
+    "conflicting values remain as source-addressed conflict candidates instead of being silently overwritten",
+    "all five rule IDs execute exactly once and return the expected decision for the integrated field state",
+    "the layer profile maps all 17 Gerber inputs by file_path and saves only an editable unconfirmed draft",
+    "the full confirmed-analysis result is not claimed by the deterministic preparation precheck"
+  ]
+}

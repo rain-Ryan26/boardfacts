@@ -1,0 +1,92 @@
+{
+  "schema_version": "1.0",
+  "matching_key": "file_path",
+  "confirmation": "explicit",
+  "layers": [
+    {
+      "file_path": "MFC_812_R2_L1_TOP.gbr",
+      "role": "top_copper",
+      "copper_layer_index": 1
+    },
+    {
+      "file_path": "MFC_812_R2_L2_GND.gbr",
+      "role": "inner_copper",
+      "copper_layer_index": 2
+    },
+    {
+      "file_path": "MFC_812_R2_L3_SIG.gbr",
+      "role": "inner_copper",
+      "copper_layer_index": 3
+    },
+    {
+      "file_path": "MFC_812_R2_L4_PWR.gbr",
+      "role": "inner_copper",
+      "copper_layer_index": 4
+    },
+    {
+      "file_path": "MFC_812_R2_L5_PWR.gbr",
+      "role": "inner_copper",
+      "copper_layer_index": 5
+    },
+    {
+      "file_path": "MFC_812_R2_L6_SIG.gbr",
+      "role": "inner_copper",
+      "copper_layer_index": 6
+    },
+    {
+      "file_path": "MFC_812_R2_L7_GND.gbr",
+      "role": "inner_copper",
+      "copper_layer_index": 7
+    },
+    {
+      "file_path": "MFC_812_R2_L8_BOTTOM.gbr",
+      "role": "bottom_copper",
+      "copper_layer_index": 8
+    },
+    {
+      "file_path": "MFC_812_R2_TOP_MASK.gbr",
+      "role": "top_solder_mask",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_BOTTOM_MASK.gbr",
+      "role": "bottom_solder_mask",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_TOP_PASTE.gbr",
+      "role": "top_paste",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_BOTTOM_PASTE.gbr",
+      "role": "bottom_paste",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_TOP_LEGEND.gbr",
+      "role": "top_silkscreen",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_BOTTOM_LEGEND.gbr",
+      "role": "bottom_silkscreen",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_PROFILE.gbr",
+      "role": "board_outline",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_PTH.drl",
+      "role": "drill",
+      "copper_layer_index": null
+    },
+    {
+      "file_path": "MFC_812_R2_NPTH.drl",
+      "role": "drill",
+      "copper_layer_index": null
+    }
+  ]
+}
