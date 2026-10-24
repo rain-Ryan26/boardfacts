@@ -7,7 +7,7 @@ dependencies = [
     "fastapi<1",
     "gerbonara==1.6.3",
     "httpx<1",
-    "pillow<13",
+    "pillow<14",
     "pydantic<3",
     "pymupdf<2",
     "python-dotenv<2",
